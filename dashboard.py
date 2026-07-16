@@ -76,9 +76,26 @@ def inject_custom_css():
         /* Base Dark Theme Overrides */
         .stApp { background-color: #0f172a; color: #f1f5f9; }
         h1, h2, h3, h4, h5 { color: #f8fafc !important; font-weight: 600; }
-        p, span, div, label { color: #f1f5f9; } /* Force text visibility */
+        p, span, label { color: #f1f5f9; } /* Force text visibility (omitted div to prevent button conflicts) */
         .stMarkdown p { color: #e2e8f0 !important; }
         
+        /* Dropdown fix (make text visible on white background) */
+        [data-baseweb="popover"] * { color: #0f172a !important; }
+        ul[role="listbox"] * { color: #0f172a !important; }
+        
+        /* Button styling fix */
+        div[data-testid="stButton"] button {
+            background-color: #3b82f6 !important;
+            color: #ffffff !important;
+            border: none !important;
+        }
+        div[data-testid="stButton"] button * {
+            color: #ffffff !important;
+            font-weight: 600 !important;
+        }
+        div[data-testid="stButton"] button:hover {
+            background-color: #2563eb !important;
+        }
         /* Sidebar Styling */
         [data-testid="stSidebar"] { background-color: #1e293b; border-right: 1px solid rgba(51,65,85,0.5); }
         [data-testid="stSidebar"] * { color: #cbd5e1 !important; }
@@ -129,13 +146,19 @@ def inject_custom_css():
         .stat-value { color: #f1f5f9; font-size: 1.5rem; font-weight: 600;}
 
         /* Hide Streamlit branding but keep the sidebar toggle visible */
-        #MainMenu {visibility: hidden;} 
-        footer {visibility: hidden;} 
+        #MainMenu {visibility: hidden !important;} 
+        footer {visibility: hidden !important;} 
         header {background-color: transparent !important;}
         
-        /* Hide Streamlit Cloud developer badges */
-        .stDeployButton {display: none;}
-        #viewerBadge_container {display: none;}
+        /* Hide Top Toolbar (Share, Star, GitHub) */
+        [data-testid="stToolbar"] {visibility: hidden !important;}
+        [data-testid="stHeader"] {background: transparent !important;}
+        
+        /* Hide Streamlit Cloud developer badges and footer */
+        .stDeployButton {display: none !important;}
+        #viewerBadge_container {display: none !important;}
+        [data-testid="manage-app-button"] {display: none !important;}
+        a[href*="streamlit"] {display: none !important;}
     </style>
     """, unsafe_allow_html=True)
 
