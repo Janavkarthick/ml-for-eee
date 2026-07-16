@@ -132,6 +132,10 @@ def inject_custom_css():
         #MainMenu {visibility: hidden;} 
         footer {visibility: hidden;} 
         header {background-color: transparent !important;}
+        
+        /* Hide Streamlit Cloud developer badges */
+        .stDeployButton {display: none;}
+        #viewerBadge_container {display: none;}
     </style>
     """, unsafe_allow_html=True)
 
@@ -148,7 +152,6 @@ def load_data():
         deficit_df = pd.read_csv(deficit_path)
         deficit_df["date"] = pd.to_datetime(deficit_df["date"])
     else:
-        st.warning("Run `python run_pipeline.py` first to generate historical predictions!")
         deficit_df = pd.DataFrame()
 
     if os.path.exists(daily_path):
